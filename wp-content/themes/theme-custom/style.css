@@ -13,3 +13,13 @@ Template: twentyseventeen
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
+
+.aposts {
+	list-style: none;
+	padding: 0;
+}
+.col-half {
+	padding: 0 10px;
+	width: 50%;
+	float: left;
+}
