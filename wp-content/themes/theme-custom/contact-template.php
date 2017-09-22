@@ -36,7 +36,7 @@ get_header(); ?>
 			?>
 
 			<!-- <form method="get" class="searchform" action="<?php bloginfo ('url'); ?>/"> -->
-			<form method="get" class="contacform">
+			<!-- <form method="post" class="contacform">
 
 				<input type="text" placeholder="Your Name" name="name" class="form-control">
 				<input type="email" placeholder="Email" name="email" class="form-control">
@@ -44,6 +44,32 @@ get_header(); ?>
 				<input class="btn" type="submit" value="SUBMIT">
 
 			</form>
+ -->
+					
+			<pre>
+			<?php
+			var_dump($_POST);
+
+			$to = 'nataliyavero@gmail.com';
+			$subject = 'Новая отправка с сайта';
+			$message = 'Name:' . $_POST['my_name'] . "\n";
+			$message .= 'Email:' . $_POST['my_email'] . "\n";
+			$message .= 'Text:' . $_POST['text'] . "\n";
+
+			wp_mail($to, $subject, $message);
+			
+			?>
+			</pre>
+
+			<form method="post" class="contacform">
+
+				Name: <input type="text" name="my_name"><br>
+				Email: <input type="email" name="my_email"><br>
+				Text: <textarea name="text"></textarea><br>
+				<input type="submit" value="SUBMIT">
+
+			</form>
+
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

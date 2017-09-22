@@ -250,4 +250,63 @@ function contact_text_func($atts, $content){
 	return ob_get_clean();
 }
 
+
+
+
+
+// add metabox for portfolio
+add_action('add_meta_boxes_portfolio', 'portfolio_add_metabox');
+
+function portfolio_add_metabox($post) {
+    add_meta_box(
+        'portfolio-meta-id',
+        __( 'Portfolio metabox', 'my-text-domain' ),
+        'render_portfolio_metabox',
+        'portfolio',
+        'side',
+        'default'
+    );
+}
+
+function render_portfolio_metabox($post) {
+    $date = get_post_meta($post->ID, 'portfolio_date', true);
+    $link = get_post_meta($post->ID, 'portfolio_link', true);
+    ?>
+
+	    <p>Portfolio date:<br>
+	    <input type="text" name="portfolio_date" id="portfolio_date" value=<?=$date;?> >
+	    </p>
+	    <p>Portfolio link:<br>
+	    <input type="text" name="portfolio_link" id="portfolio_link" value=<?=$link;?> >
+	    </p>
+
+   <?php
+}
+
+
+add_action('save_post', 'portfolio_metabox_save');
+
+function portfolio_metabox_save( $post_id ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return $post_id;
+    }
+
+ 	// echo '<pre>';
+    // var_dump($_POST);
+    // echo '<pre>';
+    // wp_die(); // 
+
+
+    if ( !isset($_POST['portfolio_date']) ) return $post_id; // есть ли в посте наше поле
+
+    // Sanitize the user input.
+    $pfdate = sanitize_text_field( $_POST['portfolio_date'] ); // 'вырезает' из текста опасные части - откуда пришел запрос
+    $pflink = sanitize_text_field( $_POST['portfolio_link'] );
+
+    // Update the meta field.
+    update_post_meta( $post_id, 'portfolio_date', $pfdate );
+    update_post_meta( $post_id, 'portfolio_link', $pflink );
+
+}
+
 ?>

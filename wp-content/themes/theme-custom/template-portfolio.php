@@ -1,18 +1,27 @@
 <?php
 /**
- * The template for displaying all single posts
+ * The template for displaying all pages
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site may use a
+ * different template.
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
  * @subpackage Twenty_Seventeen
  * @since 1.0
  * @version 1.0
  */
+/*
+Template Name: Portfolio template
+*/
 
 get_header(); ?>
-zzz
+
 <div class="wrap">
+	<h2>Тестовый ЗАГОЛОВОК</h2>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
@@ -21,36 +30,6 @@ zzz
 			while ( have_posts() ) : the_post();
 
 				get_template_part( 'template-parts/post/content', get_post_format() );
-
-
-				$args = [
-					'post_type' => 'post',
-					'posts_per_page' => '3',
-					'order' => 'ASC',
-					'orderby' => 'title',
-					'post_status' => 'publish',
-					'ignore_sticky_posts' => true,
-
-				];
-
-				$query = new WP_Query( $args);
-
-				if ($query->have_posts() ) { //  это условие для создания списка - есть ли посты, оборачиваем в ul
-					echo '<ul class="aposts">';
-
-					while ( $query->have_posts() ) {
-						$query->the_post();
-
-
-						printf('<li><a href="%s">%s</a></li>', get_the_permalink(), get_the_title() );
-						// echo '<li>' . get_the_title() . '</li>';
-					}
-
-					echo '</ul>';
-
-					wp_reset_postdata();
-				}
-
 
 				// If comments are open or we have at least one comment, load up the comment template.
 				if ( comments_open() || get_comments_number() ) :
@@ -67,7 +46,6 @@ zzz
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-	<?php get_sidebar(); ?>
 </div><!-- .wrap -->
 
 <?php get_footer();
