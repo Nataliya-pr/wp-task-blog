@@ -11,7 +11,7 @@
  */
 
 get_header(); ?>
-zzz
+Hierarhy test - single.php 
 <div class="wrap">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">

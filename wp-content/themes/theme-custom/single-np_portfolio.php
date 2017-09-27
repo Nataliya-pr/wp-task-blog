@@ -2,19 +2,16 @@
 /**
  * The template for displaying all single posts
  *
-  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
  * @package WordPress
  * @subpackage Twenty_Seventeen
  * @since 1.0
  * @version 1.0
  */
-/*
-Template Name: Portfolio template
-*/
 
 get_header(); ?>
-
+Hierarhy test - single-np_portfolio.php 
 <div class="wrap">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -23,10 +20,12 @@ get_header(); ?>
 			/* Start the Loop */
 			while ( have_posts() ) : the_post();
 
-
 				get_template_part( 'template-parts/post/content', get_post_format() );
-				echo get_post_meta(get_the_ID(), 'portfolio_date', true);
-				echo get_post_meta(get_the_ID(), 'portfolio_link', true);
+
+
+				echo '<p><b>Date:</b> ' . get_post_meta(get_the_ID(), 'np_portfolio_date', true) . '</p>';
+				echo '<b>Link:</b> <a href="#">' . get_post_meta(get_the_ID(), 'np_portfolio_link', true) . '</a>';
+
 
 				// If comments are open or we have at least one comment, load up the comment template.
 				if ( comments_open() || get_comments_number() ) :
@@ -43,6 +42,7 @@ get_header(); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
+	<?php get_sidebar(); ?>
 </div><!-- .wrap -->
 
 <?php get_footer();

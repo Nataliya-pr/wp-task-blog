@@ -238,22 +238,6 @@ function my_metabox_save( $post_id ) {
 }
 
 
-// add text on page contact
-add_shortcode('contact_text', 'contact_text_func');
-function contact_text_func($atts, $content){
-	ob_start();
-	?>
-
-		<p>$content</p>
-
-	<?php
-	return ob_get_clean();
-}
-
-
-
-
-
 // add metabox for portfolio
 add_action('add_meta_boxes_portfolio', 'portfolio_add_metabox');
 
@@ -308,5 +292,71 @@ function portfolio_metabox_save( $post_id ) {
     update_post_meta( $post_id, 'portfolio_link', $pflink );
 
 }
+
+// Widget
+class My_Widget extends WP_Widget {
+    public function __construct() {
+        $widget_ops = array(
+            'classname' => 'my_widget',
+            'description' => 'My Widget description for WP Admin',
+        );
+
+        parent::__construct( 'my_widget', 'My Widget', $widget_ops );
+    }
+
+    // public function widget( $args, $instance ) {
+    //     echo 'Hello!';
+    // }
+	public function widget( $args, $instance ) {
+	    echo $args['before_widget'];
+
+	    if ( ! empty( $instance['title'] ) ) {
+	    	echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+	    }
+
+	   // echo esc_html__( 'Hello!', 'text_domain' );
+	    if ( $instance['echo_date'] ) {
+	    	echo date('d.m.Y');
+	    }
+	    echo $args['after_widget'];
+	}
+
+
+    public function form( $instance ) {
+	    $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'My Widget', 'text_domain' );
+	    $echo_date = ! empty( $instance['echo_date'] ) ? $instance['echo_date'] : '';
+
+	    ?>
+
+	    <p>
+	        <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'text_domain' ); ?></label>
+	        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+	    </p>
+
+	<p>
+       <label for="<?php echo esc_attr( $this->get_field_id( 'echo_date' ) ); ?>"><?php esc_attr_e( 'Echo date:', 'text_domain' ); ?></label>
+       <input class="" id="<?php echo esc_attr( $this->get_field_id( 'echo_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'echo_date' ) ); ?>" type="checkbox" value="1" <?php if ($echo_date) echo 'checked="checked"'; ?>>
+   </p>
+
+	    <?php
+	}
+
+	public function update( $new_instance, $old_instance ) {
+	    $instance = array();
+	    $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+	    $instance['echo_date'] = ( ! empty( $new_instance['echo_date'] ) ) ? strip_tags( $new_instance['echo_date'] ) : '';
+
+	    return $instance;
+	}
+
+}
+
+add_action( 'widgets_init', 'np_register_my_widget');
+
+function np_register_my_widget() {
+    register_widget( 'My_Widget' );
+}
+
+
 
 ?>
