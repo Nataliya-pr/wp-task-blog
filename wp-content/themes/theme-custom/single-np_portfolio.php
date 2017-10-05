@@ -23,8 +23,8 @@ Hierarhy test - single-np_portfolio.php
 				get_template_part( 'template-parts/post/content', get_post_format() );
 
 
-				echo '<p><b>Date:</b> ' . get_post_meta(get_the_ID(), 'np_portfolio_date', true) . '</p>';
-				echo '<b>Link:</b> <a href="#">' . get_post_meta(get_the_ID(), 'np_portfolio_link', true) . '</a>';
+				echo '<p><b>Date:</b> ' . get_post_meta(get_the_ID(), '_np_portfolio_date', true) . '</p>';
+				echo '<p><b>Link:</b> <a href="#">' . get_post_meta(get_the_ID(), '_np_portfolio_link', true) . '</a></p>';
 
 
 				// If comments are open or we have at least one comment, load up the comment template.

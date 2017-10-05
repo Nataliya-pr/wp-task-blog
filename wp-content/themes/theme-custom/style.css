@@ -14,6 +14,15 @@ This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
 
+@font-face {
+	font-family: Albertus;  
+	src: local('Albertus-Medium'), 
+		url("fonts/10352.ttf") format('truetype');  
+	font-weight: normal;  
+}
+body {
+	font-family: 'Albertus', Arial, sans-serif;
+}
 .aposts {
 	list-style: none;
 	padding: 0;
